@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Ann × ChatGPT Dialogue Navigator – v0.2</title>
+<style>
+    :root{--bg:#f4f6fa;--accent:#0066ff;--dark:#222;}
+    *{box-sizing:border-box;margin:0;padding:0;font-family:"Noto Sans KR",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;}
+    body{background:var(--bg);color:var(--dark);line-height:1.6;}
+    header{background:var(--accent);color:#fff;padding:1.2rem;text-align:center;position:relative;}
+    #langSwitch{position:absolute;top:8px;right:12px;display:flex;gap:4px;}
+    #langSwitch button{border:none;background:#fff;color:var(--accent);padding:2px 6px;border-radius:3px;cursor:pointer;font-weight:600;}
+    #langSwitch button.active{background:#ffd600;color:var(--dark);}
+    nav{display:flex;justify-content:center;gap:0.6rem;margin:1.5rem 0;flex-wrap:wrap;}
+    nav button{padding:0.5rem 1rem;border:none;border-radius:4px;background:#ddd;cursor:pointer;}
+    nav button.active{background:var(--accent);color:#fff;font-weight:600;}
+    section{display:none;padding:0 1.2rem 2rem;max-width:960px;margin:0 auto;}
+    section.active{display:block;animation:fade 0.4s;}
+    h2{margin:1.2rem 0 0.6rem;}
+    details{margin:0.6rem 0;border-left:4px solid var(--accent);padding-left:0.8rem;background:#fff;border-radius:4px;}
+    summary{cursor:pointer;font-weight:600;}
+    blockquote{margin:0.4rem 0 0.8rem 0.4rem;padding-left:0.8rem;border-left:3px solid #ccc;font-style:italic;}
+    form{margin:1rem 0;background:#fff;border-radius:6px;padding:1rem;box-shadow:0 0 4px rgba(0,0,0,0.08);position:relative;}
+    form label{display:block;margin:.6rem 0 .2rem;font-weight:600;}
+    form input,form textarea{width:100%;padding:.5rem;border:1px solid #bbb;border-radius:4px;}
+    form button{margin-top:.8rem;padding:.5rem 1rem;border:none;border-radius:4px;background:var(--accent);color:#fff;font-weight:600;cursor:pointer;}
+    form.saving::after{content:'...';position:absolute;top:1rem;right:1rem;animation:dots 1s steps(3, end) infinite;}
+    ul#entryList{margin-top:.8rem;list-style:none;padding-left:0;}
+    ul#entryList li{background:#fff;margin-bottom:.4rem;padding:.6rem .8rem;border-radius:4px;display:flex;justify-content:space-between;align-items:center;}
+    ul#entryList li span{flex:1;}
+    ul#entryList button{border:none;background:#ff6666;color:#fff;border-radius:3px;padding:2px 6px;cursor:pointer;}
+    #clearAll{margin-top:1rem;padding:.5rem 1rem;border:none;border-radius:4px;background:#ff6666;color:#fff;font-weight:600;cursor:pointer;}
+    @keyframes fade{from{opacity:0} to{opacity:1}}
+    @keyframes dots{0%{content:'.';}33%{content:'..';}66%{content:'...';}}
+    footer{padding:1rem 0;text-align:center;font-size:0.85rem;color:#666;}
+    @media (max-width: 600px){
+        header h1{font-size:1.5rem;}
+        nav button{padding:0.4rem 0.8rem;font-size:0.9rem;}
+        section{padding:0 0.8rem 1.5rem;}
+    }
+</style>
+</head>
+<body>
+
+<header>
+    <h1 data-key="title">Question-Driven Asset Loop™<br/>Dialogue Navigator</h1>
+    <p data-key="subtitle">Ann Geu-hwan × ChatGPT (2023-2025)</p>
+    <div id="langSwitch">
+        <button id="btnKo" class="active">한국어</button>
+        <button id="btnEn">EN</button>
+    </div>
+</header>
+
+<nav>
+    <button class="active" data-target="gi" data-key="navGi" aria-current="page">기 START</button>
+    <button data-target="seung" data-key="navSeung" aria-current="false">승 RISE</button>
+    <button data-target="jeon" data-key="navJeon" aria-current="false">전 TURN</button>
+    <button data-target="gyeol" data-key="navGyeol" aria-current="false">결 FINISH</button>
+</nav>
+
+<section id="gi" class="active">
+    <h2 data-key="giTitle">① “기(起)” – Theme Extraction</h2>
+    <p data-key="giDesc">TV 책방 북소리 대화에서 뽑아낸 <strong>8가지 핵심 클러스터</strong>를 기반으로 Ann의 관심사 맵을 열었습니다.</p>
+    <ul>
+        <li>질문 & 자기변혁</li><li>영성 = 우선순위 재설계</li><li>공동체·이타심·리더십</li>
+        <li>경전·고전 지식 자산화</li><li>다언어·문명 융합</li><li>융합형 인재 육성</li>
+        <li>제한 공간 → 혁신</li><li>21C 영성 & 경외감</li>
+    </ul>
+    <details>
+        <summary data-key="quotesToggle">대화 속 대표 인용 살펴보기</summary>
+        <blockquote data-key="quote1">“성서는 <u>답안지</u>가 아니라 <u>질문지</u>다.” – 배철현 교수</blockquote>
+        <blockquote data-key="quote2">“질문은 문이다. 그 문을 통과해 ‘새 나’로 가야 한다.” – ChatGPT 정리</blockquote>
+    </details>
+</section>
+
+<section id="seung">
+    <h2 data-key="seungTitle">② “승(承)” – Portfolio Cross-Match</h2>
+    <p data-key="seungDesc"><em>8 Themes × Ann Asset Modules</em> 매트릭스를 돌려 <strong>유사성·차별성·경쟁력</strong>을 도출했습니다.</p>
+    <details open>
+        <summary data-key="ex1Sum">예시 : 질문 & 자기변혁 vs Question-Intelligence Loop</summary>
+        <ul>
+            <li><b data-key="sim">유사성</b> – 질문을 변화를 여는 문으로 본다.</li>
+            <li><b data-key="diff">차별성</b> – Ann은 질문 → AI → HandLoop™ → 자산화까지 <u>경제 가치 사다리</u>를 완성.</li>
+            <li><b data-key="comp">경쟁력</b> – <mark>Question-Driven Asset Loop™</mark> : 질문 에너지를 현금-흐름으로 전환.</li>
+        </ul>
+    </details>
+</section>
+
+<section id="jeon">
+    <h2 data-key="jeonTitle">③ “전(轉)” – Strategic Turn & Record Lab</h2>
+    <p data-key="jeonDesc">아래 입력폼에 오늘의 질문과 ‘경외감(Awe)’ 점수를 기록해 보세요. <br/><em>(데이터는 브라우저 <u>로컬 스토리지</u>에만 저장됩니다.)</em></p>
+    <form id="aweForm" role="form">
+        <label for="qTxt" data-key="labelQ">오늘 떠오른 질문</label>
+        <textarea id="qTxt" rows="3" placeholder="ex) 나는 내 질문 루프를 확장하려면 무엇을 놓치고 있는가?"></textarea>
+        <label for="aweScore" data-key="labelScore">경외감 점수 (0-10)</label>
+        <input type="number" id="aweScore" min="0" max="10" value="0"/>
+        <button type="submit" data-key="saveBtn">저장</button>
+    </form>
+    <h3 data-key="recordsTitle">📋 저장된 기록</h3>
+    <ul id="entryList"></ul>
+    <button id="clearAll" data-key="clearBtn">모두 지우기</button>
+</section>
+
+<section id="gyeol">
+    <h2 data-key="gyeolTitle">④ “결(結)” – Next Steps</h2>
+    <ol>
+        <li data-key="todo1">1-Pager PDF – Question-Driven Asset Loop™ 소개서 배포</li>
+        <li data-key="todo2">Awe-Index 워크숍 – ICF 코드 × 감정 데이터 매핑</li>
+        <li data-key="todo3">Classic IP 카드 5종 – 영어·한국어·KSL GIF로 SNS 파일럿</li>
+    </ol>
+    <p style="margin-top:1rem" data-key="footerAsk">💬 더 깊이 파고들 항목이나 <u>즉시 디자인할 모듈</u>이 있다면 편하게 말씀해 주세요!</p>
+</section>
+
+<footer>© 2025 Ann Geu-hwan & ChatGPT — Web-App MVP v0.2</footer>
+
+<script>
+const navBtns=document.querySelectorAll('nav button');
+const sections=document.querySelectorAll('section');
+navBtns.forEach(btn=>{
+    btn.addEventListener('click',()=>{
+        const target=btn.dataset.target;
+        navBtns.forEach(b=>{
+            b.classList.toggle('active',b===btn);
+            b.setAttribute('aria-current',b===btn?'page':'false');
+        });
+        sections.forEach(s=>s.classList.toggle('active',s.id===target));
+        window.scrollTo({top:0,behavior:'smooth'});
+    });
+});
+
+const form=document.getElementById('aweForm');
+const entryList=document.getElementById('entryList');
+const LS_KEY='aweEntries';
+
+function loadEntries(){
+    entryList.innerHTML='';
+    try{
+        const entries=JSON.parse(localStorage.getItem(LS_KEY)||'[]');
+        entries.forEach((e,i)=>{
+            const li=document.createElement('li');
+            li.innerHTML=`<span>[${e.date}] (${e.score}) – ${e.q}</span>
+                         <button data-i="${i}" aria-label="delete">×</button>`;
+            entryList.appendChild(li);
+        });
+    }catch(error){
+        console.error('Failed to load entries:',error);
+        alert(currentLang==='ko'?'데이터를 불러오지 못했습니다.':'Failed to load data.');
+    }
+}
+loadEntries();
+
+entryList.addEventListener('click',e=>{
+    if(e.target.tagName==='BUTTON'){
+        try{
+            const idx=e.target.dataset.i;
+            const entries=JSON.parse(localStorage.getItem(LS_KEY)||'[]');
+            entries.splice(idx,1);
+            localStorage.setItem(LS_KEY,JSON.stringify(entries));
+            loadEntries();
+        }catch(error){
+            console.error('Failed to delete entry:',error);
+            alert(currentLang==='ko'?'데이터를 삭제하지 못했습니다.':'Failed to delete data.');
+        }
+    }
+});
+
+form.addEventListener('submit',e=>{
+    e.preventDefault();
+    form.classList.add('saving');
+    const q=document.getElementById('qTxt').value.trim();
+    const score=parseInt(document.getElementById('aweScore').value,10);
+    if(!q){
+        alert(currentLang==='ko'?'질문을 입력하세요.':'Please input a question.');
+        form.classList.remove('saving');
+        return;
+    }
+    if(isNaN(score)||score<0||score>10){
+        alert(currentLang==='ko'?'경외감 점수는 0에서 10 사이여야 합니다.':'Awe score must be between 0 and 10.');
+        form.classList.remove('saving');
+        return;
+    }
+    try{
+        const newEntry={q,score,ts:Date.now(),date:new Date().toLocaleDateString()};
+        const entries=JSON.parse(localStorage.getItem(LS_KEY)||'[]');
+        entries.unshift(newEntry);
+        localStorage.setItem(LS_KEY,JSON.stringify(entries));
+        form.reset();
+        loadEntries();
+    }catch(error){
+        console.error('Failed to save entry:',error);
+        alert(currentLang==='ko'?'데이터를 저장하지 못했습니다.':'Failed to save data.');
+    }
+    setTimeout(()=>form.classList.remove('saving'),500);
+});
+
+document.getElementById('clearAll').addEventListener('click',()=>{
+    if(confirm(currentLang==='ko'?'모든 기록을 삭제하시겠습니까?':'Delete all records?')){
+        try{
+            localStorage.removeItem(LS_KEY);
+            loadEntries();
+        }catch(error){
+            console.error('Failed to clear entries:',error);
+            alert(currentLang==='ko'?'데이터를 삭제하지 못했습니다.':'Failed to clear data.');
+        }
+    }
+});
+
+const dict={
+    en:{
+        title:"Question-Driven Asset Loop™<br/>Dialogue Navigator",
+        subtitle:"Ann Geu-hwan × ChatGPT (2023-2025)",
+        navGi:"Start",
+        navSeung:"Rise",
+        navJeon:"Turn",
+        navGyeol:"Finish",
+        giTitle:"① \"Gi\" – Theme Extraction",
+        giDesc:"We extracted <strong>8 core clusters</strong> from the TV Book-Show dialogue and mapped them to Ann’s interests.",
+        quotesToggle:"Show sample quotes",
+        quote1:"“The Bible is not an <u>answer sheet</u> but a <u>question sheet</u>.” – Prof. Bae Chul-hyun",
+        quote2:"“A question is a door; pass through it to meet the ‘new me’.” – ChatGPT summary",
+        seungTitle:"② \"Seung\" – Portfolio Cross-Match",
+        seungDesc:"By crossing <em>8 Themes × Ann Asset Modules</em> we derived <strong>similarity, difference, competitiveness</strong>.",
+        ex1Sum:"Example : Self-Transformation vs Question-Intelligence Loop",
+        sim:"Similarity",
+        diff:"Difference",
+        comp:"Edge",
+        jeonTitle:"③ \"Jeon\" – Strategic Turn & Record Lab",
+        jeonDesc:"Log today’s question and your 'Awe' score below. <br/><em>(Data stays only in your browser’s <u>local storage</u>.)</em>",
+        labelQ:"Your question today",
+        labelScore:"Awe score (0-10)",
+        saveBtn:"Save",
+        recordsTitle:"Stored records",
+        clearBtn:"Clear All",
+        gyeolTitle:"④ \"Gyeol\" – Next Steps",
+        todo1:"Publish 1-Pager PDF – Question-Driven Asset Loop™",
+        todo2:"Run Awe-Index workshop – Map ICF codes × emotion data",
+        todo3:"Prototype 5 Classic-IP cards – EN/KR/KSL for SNS",
+        footerAsk:"💬 Tell me which part you’d like to deepen or design next!"
+    },
+    ko:{
+        title:"Question-Driven Asset Loop™<br/>Dialogue Navigator",
+        subtitle:"Ann Geu-hwan × ChatGPT (2023-2025)",
+        navGi:"기 START",
+        navSeung:"승 RISE",
+        navJeon:"전 TURN",
+        navGyeol:"결 FINISH",
+        giTitle:"① “기(起)” – Theme Extraction",
+        giDesc:"TV 책방 북소리 대화에서 뽑아낸 <strong>8가지 핵심 클러스터</strong>를 기반으로 Ann의 관심사 맵을 열었습니다.",
+        quotesToggle:"대화 속 대표 인용 살펴보기",
+        quote1:"“성서는 <u>답안지</u>가 아니라 <u>질문지</u>다.” – 배철현 교수",
+        quote2:"“질문은 문이다. 그 문을 통과해 ‘새 나’로 가야 한다.” – ChatGPT 정리",
+        seungTitle:"② “승(承)” – Portfolio Cross-Match",
+        seungDesc:"<em>8 Themes × Ann Asset Modules</em> 매트릭스를 돌려 <strong>유사성·차별성·경쟁력</strong>을 도출했습니다.",
+        ex1Sum:"예시 : 질문 & 자기변혁 vs Question-Intelligence Loop",
+        sim:"유사성",
+        diff:"차별성",
+        comp:"경쟁력",
+        jeonTitle:"③ “전(轉)” – Strategic Turn & Record Lab",
+        jeonDesc:"아래 입력폼에 오늘의 질문과 ‘경외감(Awe)’ 점수를 기록해 보세요. <br/><em>(데이터는 브라우저 <u>로컬 스토리지</u>에만 저장됩니다.)</em>",
+        labelQ:"오늘 떠오른 질문",
+        labelScore:"경외감 점수 (0-10)",
+        saveBtn:"저장",
+        recordsTitle:"📋 저장된 기록",
+        clearBtn:"모두 지우기",
+        gyeolTitle:"④ “결(結)” – Next Steps",
+        todo1:"1-Pager PDF – Question-Driven Asset Loop™ 소개서 배포",
+        todo2:"Awe-Index 워크숍 – ICF 코드 × 감정 데이터 매핑",
+        todo3:"Classic IP 카드 5종 – 영어·한국어·KSL GIF로 SNS 파일럿",
+        footerAsk:"💬 더 깊이 파고들 항목이나 <u>즉시 디자인할 모듈</u>이 있다면 편하게 말씀해 주세요!"
+    }
+};
+let currentLang='ko';
+const btnKo=document.getElementById('btnKo');
+const btnEn=document.getElementById('btnEn');
+
+function translate(lang){
+    currentLang=lang;
+    document.querySelectorAll('[data-key]').forEach(el=>{
+        const key=el.dataset.key;
+        const txt=dict[lang][key]||dict['ko'][key]||'Translation missing';
+        el.innerHTML=txt;
+    });
+    btnKo.classList.toggle('active',lang==='ko');
+    btnEn.classList.toggle('active',lang==='en');
+}
+
+btnKo.addEventListener('click',()=>translate('ko'));
+btnEn.addEventListener('click',()=>translate('en'));
+</script>
+</body>
+</html>
